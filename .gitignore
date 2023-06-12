@@ -1,0 +1,7 @@
+
+/node_modules
+/feedback
+.env
+/req.txt
+/Exam one.postman_collection.json
+*.rar
