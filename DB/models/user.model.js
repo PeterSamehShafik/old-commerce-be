@@ -5,17 +5,8 @@ const userSchema = new mongoose.Schema({
     lastName: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    gender: { type: String, enum: ['male', 'female'] },
-    lastSeen: Date,
-    address: String,
-    phone: String,
     age: Number,
-    code: { type: String, default: null },
-    confirmEmail: { type: Boolean, default: false },
-    isDeleted: { type: Boolean, default: false },
-    isBlocked: { type: Boolean, default: false },
-    isOnline: { type: Boolean, default: false },
-    role: { type: String, enum: ['user', 'admin'], default: 'user' }
+    role: { type: String, enum: ['admin' , 'superadmin', 'user'], default: 'user' }
 },
     { timestamps: true }
 )

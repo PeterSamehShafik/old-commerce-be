@@ -7,22 +7,15 @@ import * as validators from './user.validation.js'
 const router = Router()
 
 //Get endpoints
-router.get("/profile/:id", validation(validators.getUserByIdValid), uc.getUserById)
-router.get("/all", uc.getUsersWithProducts) // no validation
+router.get("/profile", auth(), validation(validators.getUserByIdValid), uc.getUser)
+router.get("/all", auth(), validation(validators.getUserByIdValid), uc.getUsers)
 
 //update endpoints
-router.patch("/updateUser", validation(validators.updateUserValid), auth(), uc.updateProfile)
-router.patch("/updatePassword", validation(validators.updatePasswordValid), auth(), uc.updatePassword)
-
-//signout
-router.post("/signOut", validation(validators.headerOnlyValid), auth(), uc.signOut)
+router.put("/:userId/removeadmin", validation(validators.makeRemoveAdminValid), auth(), uc.removeAdmin)
+router.put("/:userId/makeadmin", validation(validators.makeRemoveAdminValid), auth(), uc.makeAdmin)
 
 
 //delete endpoints
-router.patch("/softDelete", validation(validators.headerOnlyValid), auth(), uc.softDelete)
-
-//admin role
-router.patch("/block/:id", validation(validators.idOnlyValid), auth(), uc.blockUser)
-router.patch("/unblock/:id", validation(validators.idOnlyValid), auth(), uc.unBlockUser)
+router.delete("/:userId/delete", validation(validators.deleteValid), auth(), uc.deleteUser)
 
 export default router

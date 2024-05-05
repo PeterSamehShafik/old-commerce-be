@@ -17,6 +17,17 @@ export const getUserByIdValid = {
 
 }
 
+export const makeRemoveAdminValid = {
+    body: joi.object().required().keys({
+        role: joi.string().valid("admin", "user")
+    }),
+    params: joi.object().required().keys({
+        userId: joi.string().min(24).max(24)
+    }),
+    headers: joi.object().required().keys({
+        authorization: joi.string().required()
+    }).options({ allowUnknown: true })
+}
 export const updateUserValid = {
     body: joi.object().required().keys({
         firstName: joi.string().min(2).max(20).required(),
@@ -51,6 +62,14 @@ export const updatePasswordValid = {
 }
 
 export const headerOnlyValid = {
+    headers: joi.object().required().keys({
+        authorization: joi.string().required()
+    }).options({ allowUnknown: true })
+}
+export const deleteValid = {
+    params: joi.object().required().keys({
+        userId: joi.string().min(24).max(24)
+    }),
     headers: joi.object().required().keys({
         authorization: joi.string().required()
     }).options({ allowUnknown: true })

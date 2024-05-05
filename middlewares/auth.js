@@ -9,15 +9,8 @@ const auth = () => {
                 const token = authorization.split(process.env.loginTokenBearer)[1]
                 const decoded = jwt.verify(token, process.env.loginTokenSign)
                 if (decoded?.user) {
-                    const deletedOrBlocked = await userModel.findOne({ _id: decoded.user._id, $or: [{ isDeleted: true }, { isBlocked: true }, { confirmEmail: false }] })
-                    const unblockMethod = req.url.startsWith('/unblock')
-                    if (!deletedOrBlocked || unblockMethod) {
-                        req.user = decoded.user
-                        next()
-                    } else {
-                        res.status(403).json({ message: "This user was deleted or blocked, please contact the adminstrator" })
-                    }
-
+                    req.user = decoded.user
+                    next()
                 } else {
                     res.status(401).json({ message: "in-valid token payload" })
                 }
